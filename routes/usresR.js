@@ -80,6 +80,71 @@ router.post('/blogReactions/:id', authorizationToken, async (req, res) => {
         res.send(err);
 
     }
+});
+
+router.delete('/delBlogReactions/:id', authorizationToken, async (req, res) => {
+    try {
+        const ID = await Number(req.params.id);
+        const userID = await Number(req.userID);
+        const result = await Services.delReaction(ID, userID);
+        res.send(result)
+    } catch (err) {
+        console.log(err);
+        res.send(err)
+    }
+})
+
+
+router.delete('/delBlogComment/:id', authorizationToken, async (req, res) => {
+    try {
+        const ID = await req.params.id;
+        const userID = Number(req.userID);
+        const result = await Services.delComment(ID, userID);
+        res.send(result)
+    } catch (err) {
+        console.log(err);
+        res.send(err)
+    }
+})
+
+
+router.post('/blogComment/:id', authorizationToken, async (req, res) => {
+    try {
+        const ID = await Number(req.params.id);
+        const userID = await Number(req.userID);
+        const comment = await req.body;
+        const result = await Services.userComment(ID, userID, comment);
+        res.send(result)
+    } catch (err) {
+        console.log(err);
+        res.send(err)
+    }
+})
+
+
+router.post('/blogReplyComment/:id', authorizationToken, async (req, res) => {
+    try {
+        const ID = await req.params.id;
+        const userID = await Number(req.userID);
+        const comment = await req.body;
+        const result = await Services.replyToComment(ID, userID, comment);
+        res.send(result)
+    } catch (err) {
+        console.log(err);
+        res.send(err)
+    }
+})
+
+
+router.get('/blogAllComments', authorizationToken, async (req,res) => {
+    try {
+        const ID = await req.userID;
+        const result = await Services.allComments(ID);
+        res.send(result)
+    } catch (err) {
+        res.send(err)
+        
+    }
 })
 
 module.exports = router;

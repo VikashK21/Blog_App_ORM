@@ -22,8 +22,19 @@ exports.up = function(knex) {
         t3.increments();
         t3.integer('postID').notNullable();
         t3.integer('viewerID').notNullable();
+        t3.string('reaction_sec').notNullable();
         t3.timestamp('createdAt').defaultTo(knex.fn.now());
         t3.timestamp('updatedAt').defaultTo(knex.fn.now());
+    })
+    .createTable('comments_history', t4 => {
+        t4.increments();
+        t4.integer('commentor_id');
+        t4.integer('postID').notNullable();
+        t4.string('comments').notNullable();
+        t4.integer('comment_to_id').defaultTo(0);
+        t4.timestamp('createdAt').defaultTo(knex.fn.now());
+        t4.timestamp('updatedAt').defaultTo(knex.fn.now());
+
     })
   
 };

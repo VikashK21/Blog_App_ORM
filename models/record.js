@@ -22,7 +22,8 @@ class Records extends Model {
             properties: {
                 id: {type: 'integer'},
                 postID: {type: 'integer'},
-                vierwerID: {type: 'integer'}
+                viewerID: {type: 'integer'},
+                reaction_sec: {type: 'string'}
             }
         }
     }
